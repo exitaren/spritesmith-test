@@ -1,0 +1,123 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$check-after-name: 'check_after';
+$check-after-x: 88px;
+$check-after-y: 47px;
+$check-after-offset-x: -88px;
+$check-after-offset-y: -47px;
+$check-after-width: 26px;
+$check-after-height: 19px;
+$check-after-total-width: 201px;
+$check-after-total-height: 95px;
+$check-after-image: '../spritesmith-generated/sprite-light.png';
+$check-after: (88px, 47px, -88px, -47px, 26px, 19px, 201px, 95px, '../spritesmith-generated/sprite-light.png', 'check_after', );
+$foot-logo-name: 'foot_logo';
+$foot-logo-x: 0px;
+$foot-logo-y: 0px;
+$foot-logo-offset-x: 0px;
+$foot-logo-offset-y: 0px;
+$foot-logo-width: 201px;
+$foot-logo-height: 47px;
+$foot-logo-total-width: 201px;
+$foot-logo-total-height: 95px;
+$foot-logo-image: '../spritesmith-generated/sprite-light.png';
+$foot-logo: (0px, 0px, 0px, 0px, 201px, 47px, 201px, 95px, '../spritesmith-generated/sprite-light.png', 'foot_logo', );
+$ico-allgame-name: 'ico_allgame';
+$ico-allgame-x: 48px;
+$ico-allgame-y: 47px;
+$ico-allgame-offset-x: -48px;
+$ico-allgame-offset-y: -47px;
+$ico-allgame-width: 40px;
+$ico-allgame-height: 32px;
+$ico-allgame-total-width: 201px;
+$ico-allgame-total-height: 95px;
+$ico-allgame-image: '../spritesmith-generated/sprite-light.png';
+$ico-allgame: (48px, 47px, -48px, -47px, 40px, 32px, 201px, 95px, '../spritesmith-generated/sprite-light.png', 'ico_allgame', );
+$ico-discord-name: 'ico_discord';
+$ico-discord-x: 0px;
+$ico-discord-y: 47px;
+$ico-discord-offset-x: 0px;
+$ico-discord-offset-y: -47px;
+$ico-discord-width: 48px;
+$ico-discord-height: 48px;
+$ico-discord-total-width: 201px;
+$ico-discord-total-height: 95px;
+$ico-discord-image: '../spritesmith-generated/sprite-light.png';
+$ico-discord: (0px, 47px, 0px, -47px, 48px, 48px, 201px, 95px, '../spritesmith-generated/sprite-light.png', 'ico_discord', );
+$spritesheet-width: 201px;
+$spritesheet-height: 95px;
+$spritesheet-image: '../spritesmith-generated/sprite-light.png';
+$spritesheet-sprites: ($check-after, $foot-logo, $ico-allgame, $ico-discord, );
+$spritesheet: (201px, 95px, '../spritesmith-generated/sprite-light.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
