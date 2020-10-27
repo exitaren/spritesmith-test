@@ -8,7 +8,7 @@ module.exports = {
         {
           test: /\.(png|jpe?g|gif|svg)$/,
           use: {
-            loader: 'file-loader',
+            loader: ['file-loader', 'scss-loader'],
             options: {
               name: '[name].[ext]',
               outputPath: 'images',
@@ -29,7 +29,16 @@ module.exports = {
         },
         apiOptions: {
           cssImageRef: "../spritesmith-generated/sprite-light.png"
-        }
+        },
+        // retina: {
+        //   classifier: {
+        //   //   type: 'retina',
+        //   //   normalName: 'src/spritesmith-generated/sprite-light.png',
+        //   //   retinaName: 'src/spritesmith-generated/sprite-light.png',
+        //   },
+        //   targetImage: 'src/spritesmith-generated/sprite-light.png',
+        //   cssImageRef: 'src/spritesmith-generated/sprite-light.scss',
+        // }
       }),
       new SpriteDark({
         src: {
